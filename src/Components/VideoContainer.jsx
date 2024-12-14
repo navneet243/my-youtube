@@ -11,26 +11,23 @@ const VideoContainer = () => {
   },[])
 
   const getVideos = async () => {
-    const response = await fetch(YOUTUBE_API_URL);
-    const data= await response.json();
-    // console.log(data);
-    setVideo(data.items);
+    try{
+      const response = await fetch(YOUTUBE_API_URL);
+      const data= await response.json();
+      // console.log(data);
+      setVideo(data.items);
+    }catch(err){
+      console.log(err);
+    }
   }
-
-  console.log(video);
 
   return (
     <div className='m-3 flex flex-wrap gap-4 box-border'>
-      {/* <VideoCard info={video[4]}/>
-      <VideoCard info={video[2]}/>
-      <VideoCard info={video[7]}/>
-      <VideoCard info={video[5]}/>
-      <VideoCard info={video[8]}/> */}
       {
         video.map((item) => {
           return (
-          <Link to={'/watch/?v='+ item.id}>
-            <VideoCard key={item.id} info={item}/>
+          <Link to={'/watch/?v='+ item.id} key={item.id}>
+            <VideoCard info={item}/>
           </Link>)
         })
       }
